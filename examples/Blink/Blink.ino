@@ -1,18 +1,22 @@
 #include <Arduino.h>
 #include <avdweb_VirtualDelay.h>
-#include <Streaming.h>
 
-VirtualDelay delay1;
+#define ledPin 13 // built in led pin
+#define interval 1000 // length of time between the led switching on and off
+
+bool b = false; // led state
+
+VirtualDelay singleDelay; // default = millis
 
 void setup()
 {
-    Serial.begin(9600);
-    Serial << "\ntestOneShot 2s\n";
+   pinMode(ledPin, OUTPUT); 
 }
 
 void loop()
 {
-    DO_ONCE(delay1.start(2000)) // do only one time in the loop
-    if (delay1.elapsed())
-        Serial << millis() << "ms";
+    singleDelay.start(interval); // calls while running are ignored
+    if (singleDelay.elapsed()) {
+        digitalWrite(ledPin, b = !b); // blink the onboard LED 400ms, 400ms off
+    }
 }

@@ -1,18 +1,21 @@
 #include <Arduino.h>
 #include <avdweb_VirtualDelay.h>
-#include <Streaming.h>
+
+#define interval 2000
 
 VirtualDelay delay1;
 
 void setup()
 {
     Serial.begin(9600);
-    Serial << "\ntestOneShot 2s\n";
+    Serial.println("testOneShot 2s");
+    delay1.start(interval);
 }
 
 void loop()
 {
-    DO_ONCE(delay1.start(2000)) // do only one time in the loop
-    if (delay1.elapsed())
-        Serial << millis() << "ms";
+    if (delay1.elapsed()) {
+      Serial.print(millis());
+      Serial.println("ms");
+    }    
 }

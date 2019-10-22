@@ -1,7 +1,5 @@
 #include <Arduino.h>
 #include <avdweb_VirtualDelay.h>
-#include <Albert.h>
-#include <Streaming.h>
 #include <util/atomic.h>
 
 VirtualDelay delay_ms;
@@ -26,18 +24,28 @@ void setup()
 
     t0_ms = millis();
     t0_us = micros();
-    Serial << "\nTest VirtualDelay ms " << ms << "ms";
-    Serial << "\nTest VirtualDelay us " << us << "us";
-    Serial << "\nChanged t0_ms=" << t0_ms << "ms";
+    
+    Serial.print("Test VirtualDelay ms ");
+    Serial.print(ms);
+    Serial.println("ms");
+    Serial.print("Test VirtualDelay us ");
+    Serial.print(us);
+    Serial.println("us");
+    Serial.print("Changed t0_ms= ");
+    Serial.print(t0_ms);
+    Serial.println("ms");
 }
 
 void loop()
 {
     DO_ONCE // do only one time in the loop
-        (delay_ms.start(ms); delay_us.start(us);) if (delay_ms.elapsed()) Serial
-        << "\n"
-        << millis() - t0_ms << "ms"; // result is ~ 1021ms
-    if (delay_us.elapsed())
-        Serial << "\n"
-               << micros() - t0_us << "us"; // result is ~ 2021884us
-}
+        (delay_ms.start(ms); delay_us.start(us);) 
+    if (delay_ms.elapsed()) {
+      Serial.print(millis() - t0_ms); // result is ~ 1021ms
+      Serial.println("ms"); 
+    }
+    
+    if (delay_us.elapsed()) {
+        Serial.print(micros() - t0_us);
+        Serial.println("us"); // result is ~ 2021884us
+}   }
