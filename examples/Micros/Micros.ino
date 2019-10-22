@@ -1,4 +1,5 @@
-#include "avdweb_VirtualDelay.h"
+#include <Arduino.h>
+#include <avdweb_VirtualDelay.h>
 
 VirtualDelay delay_us(micros);
 
